@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: Rakesh@1995
+      MYSQL_DATABASE: sms
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Rakesh@1995
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  my-sms-app:
+    build: .
+    ports:
+      - "9001:9001"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data: {}
