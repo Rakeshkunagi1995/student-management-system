@@ -16,7 +16,7 @@ RUN mvn clean package -DskipTests=true
 FROM openjdk:17-alpine
 
 # Copy JAR file from build stage
-COPY --from=builder /app/target/*.jar sms-0.0.1-SNAPSHOT.jar.jar
+COPY --from=builder /app/target/sms-0.0.1-SNAPSHOT.jar sms.jar
 
 # Set working directory
 WORKDIR /app
@@ -25,4 +25,4 @@ WORKDIR /app
 EXPOSE 9001
 
 # Start the application
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "sms.jar"]
