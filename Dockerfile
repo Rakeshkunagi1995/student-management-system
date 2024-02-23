@@ -1,26 +1,26 @@
 FROM openjdk:17-alpine AS builder
 
 # Set working directory
-WORKDIR /home/app
+WORKDIR /app
 
 # Copy project files
-COPY src /home/app/src
-COPY pom.xml /home/app
+COPY src /app/src
+COPY pom.xml /app
 
 # Install Maven dependencies
 RUN apk add --no-cache maven
 
 # Build the project
-RUN mvn -f /home/app/pom.xml clean package -DskipTests
+RUN mvn -f /app/pom.xml clean package -DskipTests
 
 # Create a slimmer image for production
 FROM openjdk:17-alpine
 
 # Copy JAR file from build stage
-COPY --from=build /home/app/target/sms-0.0.1-SNAPSHOT.jar /home/app/sms.jar
+COPY --from=build /app/target/sms-0.0.1-SNAPSHOT.jar /app/sms.jar
 
 # Set working directory
-WORKDIR /home/app
+WORKDIR /app
 
 # Expose port 9001
 EXPOSE 9001
