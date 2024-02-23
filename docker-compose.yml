@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Rakesh@1995
       MYSQL_DATABASE: sms
-      MYSQL_USER: root
+      MYSQL_USER: rakesh
       MYSQL_PASSWORD: Rakesh@1995
     ports:
       - "3306:3306"
