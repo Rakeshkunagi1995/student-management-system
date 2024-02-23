@@ -1,4 +1,4 @@
-FROM maven:3.2.5-openjdk-17 as maven-builder
+FROM openjdk:17-alpine AS builder
 COPY src /app/src
 COPY pom.xml /app
 
