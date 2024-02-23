@@ -19,7 +19,7 @@ services:
   my-sms-app:
     container_name: spring-sms
     build:
-      context: ./src
+      context: ./
       dockerfile: Dockerfile
     ports:
       - 9001:8080
