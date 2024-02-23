@@ -1,28 +1,12 @@
-FROM openjdk:17-alpine AS builder
+FROM maven:3.2.5-openjdk-17 as maven-builder
+COPY src /app/src
+COPY pom.xml /app
 
-# Set working directory
-WORKDIR /app
-
-# Copy project files
-COPY . .
-
-# Install Maven dependencies
-RUN apk add --no-cache maven
-
-# Build the project
-RUN mvn clean package -DskipTests=true
-
-# Create a slimmer image for production
+RUN mvn -f /app/pom.xml clean package -DskipTests
 FROM openjdk:17-alpine
 
-# Copy JAR file from build stage
-COPY --from=builder /app/target/sms-0.0.1-SNAPSHOT.jar sms.jar
+COPY --from=maven-builder app/target/sms-0.0.1-SNAPSHOT.jar /app-service/sms.jar
+WORKDIR /app-service
 
-# Set working directory
-WORKDIR /app
-
-# Expose port 9001
-EXPOSE 9001
-
-# Start the application
-CMD ["java", "-jar", "sms.jar"]
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","sms.jar"]
