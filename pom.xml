@@ -72,7 +72,7 @@
 		</plugins>
 	</build>
 
-						<distributionManagement>
+<distributionManagement>
     <repository>
       <id>maven-releases</id>
       <name>maven-releases</name>
@@ -84,5 +84,6 @@
       <url>http://65.0.91.224:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
 </distributionManagement>
+
 
 </project>
