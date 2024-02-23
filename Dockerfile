@@ -17,7 +17,7 @@ RUN mvn -f /home/app/pom.xml clean package -DskipTests
 FROM openjdk:17-alpine
 
 # Copy JAR file from build stage
-COPY --from=build /home/app/target/sms-0.0.1-SNAPSHOT.jar /home/appsms.jar
+COPY --from=build /home/app/target/sms-0.0.1-SNAPSHOT.jar /home/app/sms.jar
 
 # Set working directory
 WORKDIR /home/app
