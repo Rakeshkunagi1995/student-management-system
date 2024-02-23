@@ -4,20 +4,19 @@ FROM openjdk:17-alpine AS builder
 WORKDIR /app
 
 # Copy project files
-COPY src /app/src
-COPY pom.xml /app
+COPY . .
 
 # Install Maven dependencies
 RUN apk add --no-cache maven
 
 # Build the project
-RUN mvn -f /app/pom.xml clean package -DskipTests
+RUN mvn clean package -DskipTests=true
 
 # Create a slimmer image for production
 FROM openjdk:17-alpine
 
 # Copy JAR file from build stage
-COPY --from=build /app/target/sms-0.0.1-SNAPSHOT.jar /app/sms.jar
+COPY --from=builder /app/target/sms-0.0.1-SNAPSHOT.jar sms.jar
 
 # Set working directory
 WORKDIR /app
